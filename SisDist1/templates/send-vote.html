@@ -42,5 +42,64 @@
     </div>
 
 </body>
+<script src="templates/jsencrypt.js"></script>
+<script>
+
+    // crea los objetos para encriptar
+    var crypt = new JSEncrypt();
+    var crypt_priv = new JSEncrypt();
+    crypt.setKey('-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCO4LkWK2/HHAlx222xgV9kFfZEjXPUgW/oFc6LfaaUrqwUzp/3woMlNDeCcCTBYK3w7AZtucBLrVG1UYwBC8CB06ZKbCAyKedGxN37TgVkM4q6uC7Y1I9mnCQ+QCYQSUZCF8Din3sH1Z0q6OEuBOGlxNO35aRUHdn9wXTEYek1PQIDAQAB-----END PUBLIC KEY------'); //You can use also setPrivateKey and setPublicKey, they are both alias to setKey
+    crypt_priv.setKey('-----BEGIN RSA PRIVATE KEY-----MIICXAIBAAKBgQCO4LkWK2/HHAlx222xgV9kFfZEjXPUgW/oFc6LfaaUrqwUzp/3woMlNDeCcCTBYK3w7AZtucBLrVG1UYwBC8CB06ZKbCAyKedGxN37TgVkM4q6uC7Y1I9mnCQ+QCYQSUZCF8Din3sH1Z0q6OEuBOGlxNO35aRUHdn9wXTEYek1PQIDAQABAoGAJ2GpooK2fJstv0RMJ/EQ6fVju+GBW8GRptbb53bqw3Ch3dpWHWRv4YFTC5D9kI+lYhKscvIQHsvXCbNAc8lZdgXtgXd2DXAibwlX5uA1NYlX6fcZPX0VuyMp+ASFt1FgOLN+GkjHo7PsXMTyBWPEDItyE295cVhV0LZG51czz8ECQQDG51OY9Le2jccODQnx+lFdI0NjSoaOyAnUDy21CjSkZtc/oY54tsk70RseexQwx82UEB8JmwD0AgsFM0G9eIGbAkEAt+RF49e9BvcZ9qlCMbJVS6txrUdYiCuyI9fpHEKw6iazWfQNFNN8kPP1sidfIb4BsVm4lRuuEJKpUu+wBOCeBwJACVLOmFzgP65lpkL2NGGHbtY4Um8r34WA8G/FtLbFwO8RJ+pqwz3OMP+cRdF/IMo82LPowIqDgOyXl6bPbhI4AQJAJ0CFnpW9VpBGLX2BkKQVStqkoC0be62AD+CVdJ/TrZdnLytF440lCLfaWRXIW6Z4LAgPu1w2MnlrxTU+aDwd3wJBALqbGJMtlndXQ4K3PndQ9nPGP/JNYoFFBezY8zpCv/XriftN0og8WRoqzJaz9hyB93MMvevEc3P24AYlr/VhOUY=-----END RSA PRIVATE KEY-----');
+
+    var text = 'test';
+    // Encripta con la llave publica.
+    var enc = crypt.encrypt(text);
+    // Desencripta con la llave privada
+    var dec = crypt_priv.decrypt(enc);
+
+    console.log(enc);
+    console.log(dec);
+    
+    
+
+</script>
 
 </html>
+
+<!--
+
+
+-----BEGIN RSA PRIVATE KEY-----
+MIICXAIBAAKBgQCO4LkWK2/HHAlx222xgV9kFfZEjXPUgW/oFc6LfaaUrqwUzp/3
+woMlNDeCcCTBYK3w7AZtucBLrVG1UYwBC8CB06ZKbCAyKedGxN37TgVkM4q6uC7Y
+1I9mnCQ+QCYQSUZCF8Din3sH1Z0q6OEuBOGlxNO35aRUHdn9wXTEYek1PQIDAQAB
+AoGAJ2GpooK2fJstv0RMJ/EQ6fVju+GBW8GRptbb53bqw3Ch3dpWHWRv4YFTC5D9
+kI+lYhKscvIQHsvXCbNAc8lZdgXtgXd2DXAibwlX5uA1NYlX6fcZPX0VuyMp+ASF
+t1FgOLN+GkjHo7PsXMTyBWPEDItyE295cVhV0LZG51czz8ECQQDG51OY9Le2jccO
+DQnx+lFdI0NjSoaOyAnUDy21CjSkZtc/oY54tsk70RseexQwx82UEB8JmwD0AgsF
+M0G9eIGbAkEAt+RF49e9BvcZ9qlCMbJVS6txrUdYiCuyI9fpHEKw6iazWfQNFNN8
+kPP1sidfIb4BsVm4lRuuEJKpUu+wBOCeBwJACVLOmFzgP65lpkL2NGGHbtY4Um8r
+34WA8G/FtLbFwO8RJ+pqwz3OMP+cRdF/IMo82LPowIqDgOyXl6bPbhI4AQJAJ0CF
+npW9VpBGLX2BkKQVStqkoC0be62AD+CVdJ/TrZdnLytF440lCLfaWRXIW6Z4LAgP
+u1w2MnlrxTU+aDwd3wJBALqbGJMtlndXQ4K3PndQ9nPGP/JNYoFFBezY8zpCv/Xr
+iftN0og8WRoqzJaz9hyB93MMvevEc3P24AYlr/VhOUY=
+-----END RSA PRIVATE KEY-----
+
+
+
+
+-->
+
+
+<!--
+
+-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCO4LkWK2/HHAlx222xgV9kFfZE
+jXPUgW/oFc6LfaaUrqwUzp/3woMlNDeCcCTBYK3w7AZtucBLrVG1UYwBC8CB06ZK
+bCAyKedGxN37TgVkM4q6uC7Y1I9mnCQ+QCYQSUZCF8Din3sH1Z0q6OEuBOGlxNO3
+5aRUHdn9wXTEYek1PQIDAQAB
+-----END PUBLIC KEY-----
+
+
+
+-->
