@@ -118,8 +118,9 @@ class CountVotes(View):
         for candidate in candidates:
             candidate_dict = candidate.__dict__
             candidate_dict['votes'] = 0
-            candidate_votes[candidate_dict['id']] = candidate_dict
+            candidate_dict['political_party'] = candidate.political_party.name
             del candidate_dict['_state']
+            candidate_votes[candidate_dict['id']] = candidate_dict
 
         for encripted_vote in encripted_votes:
             decrypted_vote = jwt.decode(encripted_vote.encripted_vote, private_key, algorithms='RS256')
