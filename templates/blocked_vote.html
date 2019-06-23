@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Page vote</title>
+    <base href="/">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<style>
+    body {
+        background-color: #f3f3f3;
+    }
+    .container{
+        height: 100vh;
+    }
+</style>
+
+<body>
+
+<div class="container">
+    <div class="row h-100">
+        <div class="col-12 my-auto">
+            <h1 class="text-center">Esperando por habilitación de la mesa</h1>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script>
+    setInterval(() => {
+        $.get('check_vote/').done((data) => {
+            if (data.opperation) {
+                window.location.href = '{% url 'display_votes' %}';
+                {#console.log('{{ request.get_host }}')#}
+            }
+        })
+    },2000)
+</script>
+
+</html>

@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <title>Page vote</title>
+    <base href="/">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<style>
+    body {
+        background-color: #f3f3f3;
+    }
+
+    .card {
+        cursor: pointer;
+    }
+
+    .card:hover {
+        opacity: 0.8;
+    }
+</style>
+
+<body>
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col-12">
+            <h1 class="mt-5">Seleccione su voto</h1>
+            <div class="row">
+
+                <!--
+                  Box para un candidato
+                -->
+                {% for encrypted_candidate in encrypted_candidates %}
+                    <div class="col-4 mt-4">
+                        <div class="card" onclick="vote{{ forloop.counter }}({{ user }});">
+                            <img src="https://sc2.elpais.com.uy/files/article_default_content/uploads/2019/03/30/5c9fe12eb5dc3.jpeg"
+                                 class="card-img-top" alt="...">
+                            <div class="card-body text-left">
+                                <h5 class="card-title">
+                                    {{ encrypted_candidate.full_name }}
+                                </h5>
+                                <p class="card-text">
+                                    {{ encrypted_candidate.political_party }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {#          <!--#}
+                {#            Box para un candidato#}
+                {#          -->#}
+                {#          <div class="col-4 mt-4">#}
+                {#            <div class="card ">#}
+                {#              <img src="https://sc2.elpais.com.uy/files/article_default_content/uploads/2019/03/30/5c9fe12eb5dc3.jpeg"#}
+                {#                class="card-img-top" alt="...">#}
+                {#              <div class="card-body text-left">#}
+                {#                  <h5 class="card-title">#}
+                {#                      Partido X#}
+                {#                    </h5>#}
+                {#                <p class="card-text">#}
+                {#                  Nombre del candidato#}
+                {#                </p>#}
+                {#              </div>#}
+                {#            </div>#}
+                {#          </div>#}
+                {##}
+                {#          <!--#}
+                {#            Box para un candidato#}
+                {#          -->#}
+                {#          <div class="col-4 mt-4">#}
+                {#            <div class="card ">#}
+                {#              <img src="https://sc2.elpais.com.uy/files/article_default_content/uploads/2019/03/30/5c9fe12eb5dc3.jpeg"#}
+                {#                class="card-img-top" alt="...">#}
+                {#              <div class="card-body text-left">#}
+                {#                  <h5 class="card-title">#}
+                {#                      Partido X#}
+                {#                    </h5>#}
+                {#                <p class="card-text">#}
+                {#                  Nombre del candidato#}
+                {#                </p>#}
+                {#              </div>#}
+                {#            </div>#}
+                {#          </div>#}
+                {##}
+                {#          <!--#}
+                {#            Box para un candidato#}
+                {#          -->#}
+                {#          <div class="col-4 mt-4">#}
+                {#            <div class="card ">#}
+                {#              <img src="https://sc2.elpais.com.uy/files/article_default_content/uploads/2019/03/30/5c9fe12eb5dc3.jpeg"#}
+                {#                class="card-img-top" alt="...">#}
+                {#              <div class="card-body text-left">#}
+                {#                  <h5 class="card-title">#}
+                {#                      Partido X#}
+                {#                    </h5>#}
+                {#                <p class="card-text">#}
+                {#                  Nombre del candidato#}
+                {#                </p>#}
+                {#              </div>#}
+                {#            </div>#}
+                {#          </div>#}
+                {##}
+                {#          <!--#}
+                {#            Box para un candidato#}
+                {#          -->#}
+                {#          <div class="col-4 mt-4">#}
+                {#            <div class="card">#}
+                {#              <img src="https://sc2.elpais.com.uy/files/article_default_content/uploads/2019/03/30/5c9fe12eb5dc3.jpeg"#}
+                {#                class="card-img-top" alt="...">#}
+                {#              <div class="card-body text-left">#}
+                {#                  <h5 class="card-title">#}
+                {#                      Partido X#}
+                {#                    </h5>#}
+                {#                <p class="card-text">#}
+                {#                  Nombre del candidato#}
+                {#                </p>#}
+                {#              </div>#}
+                {#            </div>#}
+                {#          </div>#}
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'jsencrypt.js' %}"></script>
+<script>
+    console.log('{{ encrypted_candidates.0.encrypted_id }}');
+    const crypt = new JSEncrypt();
+    {#const crypt_priv = new JSEncrypt();#}
+
+    crypt.setKey('-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCO4LkWK2/HHAlx222xgV9kFfZEjXPUgW/oFc6LfaaUrqwUzp/3woMlNDeCcCTBYK3w7AZtucBLrVG1UYwBC8CB06ZKbCAyKedGxN37TgVkM4q6uC7Y1I9mnCQ+QCYQSUZCF8Din3sH1Z0q6OEuBOGlxNO35aRUHdn9wXTEYek1PQIDAQAB-----END PUBLIC KEY------'); //You can use also setPrivateKey and setPublicKey, they are both alias to setKey
+    {#crypt_priv.setKey('-----BEGIN RSA PRIVATE KEY-----MIICXAIBAAKBgQCO4LkWK2/HHAlx222xgV9kFfZEjXPUgW/oFc6LfaaUrqwUzp/3woMlNDeCcCTBYK3w7AZtucBLrVG1UYwBC8CB06ZKbCAyKedGxN37TgVkM4q6uC7Y1I9mnCQ+QCYQSUZCF8Din3sH1Z0q6OEuBOGlxNO35aRUHdn9wXTEYek1PQIDAQABAoGAJ2GpooK2fJstv0RMJ/EQ6fVju+GBW8GRptbb53bqw3Ch3dpWHWRv4YFTC5D9kI+lYhKscvIQHsvXCbNAc8lZdgXtgXd2DXAibwlX5uA1NYlX6fcZPX0VuyMp+ASFt1FgOLN+GkjHo7PsXMTyBWPEDItyE295cVhV0LZG51czz8ECQQDG51OY9Le2jccODQnx+lFdI0NjSoaOyAnUDy21CjSkZtc/oY54tsk70RseexQwx82UEB8JmwD0AgsFM0G9eIGbAkEAt+RF49e9BvcZ9qlCMbJVS6txrUdYiCuyI9fpHEKw6iazWfQNFNN8kPP1sidfIb4BsVm4lRuuEJKpUu+wBOCeBwJACVLOmFzgP65lpkL2NGGHbtY4Um8r34WA8G/FtLbFwO8RJ+pqwz3OMP+cRdF/IMo82LPowIqDgOyXl6bPbhI4AQJAJ0CFnpW9VpBGLX2BkKQVStqkoC0be62AD+CVdJ/TrZdnLytF440lCLfaWRXIW6Z4LAgPu1w2MnlrxTU+aDwd3wJBALqbGJMtlndXQ4K3PndQ9nPGP/JNYoFFBezY8zpCv/XriftN0og8WRoqzJaz9hyB93MMvevEc3P24AYlr/VhOUY=-----END RSA PRIVATE KEY-----');#}
+
+    {% for encrypted_candidate in encrypted_candidates %}
+        const vote{{ forloop.counter }} = (userID) => {
+            console.log('{{  encrypted_candidate.full_name }} ');
+
+            $.post("vote/", {
+                userID: userID,
+                candidateID: '{{ encrypted_candidate.encrypted_id }}',
+
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            }).done(function (data) {
+                console.log(data);
+                if (data.opperation) {
+                    window.location.href = '{% url 'blocked_vote' %}'
+                }
+            })
+        };
+    {% endfor %}
+
+</script>
+</body>
+
+</html>
