@@ -130,8 +130,25 @@ class CountVotes(View):
             del candidate_dict['_state']
             candidate_votes[candidate_dict['id']] = candidate_dict
 
+        count = 0
         for encripted_vote in encripted_votes:
+            count += 1
             decrypted_vote = jwt.decode(encripted_vote.encripted_vote, private_key, algorithms='RS256')
             candidate_votes[decrypted_vote['candidate_id']]['votes'] += 1
+
+        
+        candidate_win = 0
+        candidate_votes_win = 0
+        for candidate in candidate_votes:
+            votes = candidate_votes[candidate]['votes'] 
+            if votes >= candidate_votes_win :
+                candidate_votes_win = votes
+                candidate_win = candidate
+
+            candidate_votes[candidate]['votes_percent'] = (votes * 100)/count
+            candidate_votes[candidate]['win'] = "No"
+
+        candidate_votes[candidate_win]['win'] = "Si"
+
 
         return JsonResponse(status=200, data=candidate_votes)

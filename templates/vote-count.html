@@ -81,7 +81,6 @@
     const processingVotes = () => {
         $.get("{% url 'count_votes' %}")
             .done((data) => {
-                console.log(data);
                 loadResults(data);
             })
             .fail(function (data) {
@@ -92,6 +91,9 @@
 
         const loadResults = (data) => {
             if (data != null) {
+
+                $('table tbody').html("");
+                
                 for (const key in data) {
                     if (data.hasOwnProperty(key)) {
                         const element = data[key];
@@ -101,8 +103,8 @@
                         <td>` + element.full_name + `</td>
                         <td>` + element.political_party + `</td>
                         <td>` + element.votes + `</td>
-                        <td>` + element.votes + `</td>
-                        <td>` + "por ahora nada" + `</td>
+                        <td>` + element.votes_percent + `%</td>
+                        <td>` + element.win + `</td>
                     </tr>`)
                     }
                 }

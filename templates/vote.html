@@ -123,7 +123,6 @@
 
                 csrfmiddlewaretoken: '{{ csrf_token }}'
             }).done(function (data) {
-                console.log(data);
                 if (data.opperation) {
                        window.location.href = '{% url 'blocked_vote' %}'
                 }

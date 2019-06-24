@@ -62,8 +62,8 @@
     const sendvoter = () => {
         let ci_value = $('#ci').val();
         let credential_value = $('#credential').val();
-        console.log(ci_value);
-        console.log(credential_value);
+
+
         if ((ci_value == "" || ci_value == undefined || ci_value == null) && (credential_value == "" || credential_value == undefined || credential_value == null)) {
             alert('Ingrese CI o Credencial civica');
         } else {
@@ -75,6 +75,8 @@
             }).done(function (data) {
                 if (!data.opperation) {
                     alert(data.message)
+                }else{
+                    alert("Cuarto oscuro disponible")
                 }
             })
         }
