@@ -2,7 +2,7 @@ import json
 
 from cryptography.hazmat.primitives.asymmetric import padding
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from SDCore.models import Candidate, Vote, Voter, EncriptedVotes, ElectoralCort
 from SDCore.keys import public_key, private_key
 import jwt
@@ -14,11 +14,15 @@ from django.views import View
 
 class DisplayVotes(View):
     def get(self, request):
+        if not Voter.objects.filter(enable_vote=True).exists():
+            return redirect('blocked_vote')
+        voter = Voter.objects.get(enable_vote=True)
         candidates = Candidate.objects.all()
         encrypted_candidates = []
         for candidate in candidates:
             candidate_dict = {}
             candidate_dict['full_name'] = candidate.full_name
+            candidate_dict['image'] = candidate.image
             candidate_dict['political_party'] = candidate.political_party.name
             candidate_dict['encrypted_id'] = jwt.encode({'candidate_id': candidate.id}, public_key, algorithm='RS256')
             encrypted_candidates.append(candidate_dict)
@@ -27,7 +31,7 @@ class DisplayVotes(View):
 
         context = {
             'encrypted_candidates': encrypted_candidates,
-            'user': 1,
+            'user': voter.pk,
         }
         return render(request, 'vote.html', context)
 
@@ -46,15 +50,15 @@ class DisplayVotes(View):
 
 class EnableVote(View):
     def get(self, request):
-        context = {
-
-        }
-        return render(request, 'vote-income.html', context)
+        return render(request, 'vote-income.html')
 
     def post(self, request):
         credential_value = request.POST.get('credential_value')
         ci_value = request.POST.get('ci_value')
         electoral_court = ElectoralCort.objects.first()
+
+        if Voter.objects.filter(enable_vote=True).exists():
+            return JsonResponse({'opperation': False, 'message': 'Hay una persona votando en este momento'})
 
         if electoral_court.closed_votes:
             return JsonResponse({'opperation': False, 'message': 'El tiempo de votacion ha terminado'})
@@ -110,11 +114,15 @@ class StopVoting(View):
         electoral_court.save()
         return JsonResponse({'opperation': True})
 
+
 class CountVotes(View):
     def get(self, request):
         encripted_votes = EncriptedVotes.objects.all()
         candidates = Candidate.objects.all()
         candidate_votes = {}
+        electoral_court = ElectoralCort.objects.first()
+        if not electoral_court.closed_votes:
+            return JsonResponse(status=406, data={'message': 'La votacion debe ser detenida antes de obtener los resultados'})
         for candidate in candidates:
             candidate_dict = candidate.__dict__
             candidate_dict['votes'] = 0

@@ -57,6 +57,7 @@ class Witness(models.Model):
 
 class Candidate(models.Model):
     political_party = models.ForeignKey(to='PoliticalParty', on_delete=models.SET_NULL, null=True)
+    image = models.TextField(blank=True, null=True)
     full_name = models.CharField(max_length=80)
 
 

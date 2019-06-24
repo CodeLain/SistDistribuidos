@@ -63,7 +63,7 @@
                     {% for encrypted_candidate in encrypted_candidates %}
                     <div class="col-4 mt-4">
                         <div class="card" onclick="vote{{ forloop.counter }}({{ user }});">
-                            <img src="https://sc2.elpais.com.uy/files/article_default_content/uploads/2019/03/30/5c9fe12eb5dc3.jpeg"
+                            <img src="{{ encrypted_candidate.image }}"
                                 class="card-img-top" alt="...">
                             <div class="card-body text-left">
                                 <h5 class="card-title">
@@ -101,7 +101,7 @@
         {% for encrypted_candidate in encrypted_candidates %}
         const vote{{ forloop.counter }} = (userID) => {
 
-            var aux_voto = '{{ encrypted_candidate.encrypted_id }}'
+            var aux_voto = '{{ encrypted_candidate.encrypted_id }}';
             modalConfirm(userID,aux_voto);
         
         };
@@ -111,8 +111,8 @@
         var send_user = 0;
         const modalConfirm = (userID,vote) => {
 
-            send_vote = vote
-            send_user = userID
+            send_vote = vote;
+            send_user = userID;
             $('.confirm').show();
         };
 
@@ -128,7 +128,8 @@
                        window.location.href = '{% url 'blocked_vote' %}'
                 }
             })
-        }
+        };
+
         const cancel = () => {
             $('.confirm').hide();
         }
