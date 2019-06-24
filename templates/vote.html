@@ -93,7 +93,7 @@
     </div>
     <script src="{% static 'jsencrypt.js' %}"></script>
     <script>
-        
+
         const crypt = new JSEncrypt();
 
         crypt.setKey('-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCO4LkWK2/HHAlx222xgV9kFfZEjXPUgW/oFc6LfaaUrqwUzp/3woMlNDeCcCTBYK3w7AZtucBLrVG1UYwBC8CB06ZKbCAyKedGxN37TgVkM4q6uC7Y1I9mnCQ+QCYQSUZCF8Din3sH1Z0q6OEuBOGlxNO35aRUHdn9wXTEYek1PQIDAQAB-----END PUBLIC KEY------'); //You can use also setPrivateKey and setPublicKey, they are both alias to setKey
@@ -104,7 +104,6 @@
             var aux_voto = '{{ encrypted_candidate.encrypted_id }}'
             modalConfirm(userID,aux_voto);
         
-            
         };
         {% endfor %}
 
